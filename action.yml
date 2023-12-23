@@ -1,0 +1,11 @@
+# https://help.github.com/en/articles/metadata-syntax-for-github-actions
+name: Build and push Docker images
+description: Build and push Docker images with Buildx
+author: tuxpower
+branding:
+  icon: 'anchor'
+  color: 'blue'
+
+runs:
+  steps:
+    - uses: ${{ github.action_path }}/deploy
