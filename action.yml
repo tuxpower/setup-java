@@ -6,10 +6,10 @@ branding:
   icon: 'anchor'
   color: 'blue'
 inputs:
-  DOCKERHUB_USERNAME:
+  dockerhub_username:
     description: 'Docker Hub username'
     required: true
-  DOCKERHUB_TOKEN:
+  dockerhub_token:
     description: 'Docker Hub token'
     required: true
 
