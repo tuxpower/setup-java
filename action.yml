@@ -1,30 +1,28 @@
-name: Deploy
+# https://help.github.com/en/articles/metadata-syntax-for-github-actions
+name: Build and push Docker images
+description: Build and push Docker images with Buildx
+author: tuxpower
+branding:
+  icon: 'anchor'
+  color: 'blue'
 
-on:
-  workflow_dispatch:
+runs:
+  using: "composite"
+  steps:
+  - name: Checkout code
+    uses: actions/checkout@v4
 
-jobs:
+  - name: Set up Docker Buildx
+    uses: docker/setup-buildx-action@v3
 
-  build:
+  - name: Login to Docker Hub
+    uses: docker/login-action@v3
+    with:
+      username: ${{ secrets.DOCKERHUB_USERNAME }}
+      password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    runs-on: ubuntu-latest
-    using: "composite"
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-
-    - name: Login to Docker Hub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-    - name: Build and push
-      uses: docker/build-push-action@v5
-      with:
-        push: true
-        tags: jgaspar/workflow:latest
+  - name: Build and push
+    uses: docker/build-push-action@v5
+    with:
+      push: true
+      tags: jgaspar/workflow:latest
